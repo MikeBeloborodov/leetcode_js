@@ -6,16 +6,12 @@
   A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
   * */
 
-interface Root {
-  val: number;
-  left: Root | null;
-  right: Root | null;
-}
+import { createTree, Node } from "../../utils/utils";
 
-const maxDepth = (root: Root): number => {
+const maxDepth = <T>(root: Node<T> | null): number => {
   let maxDepth = 0;
 
-  const recursion = (root: Root | null, level: number): void => {
+  const recursion = <T>(root: Node<T> | null, level: number): void => {
     if (!root) return;
 
     if (level > maxDepth) maxDepth = level;
@@ -25,3 +21,22 @@ const maxDepth = (root: Root): number => {
   recursion(root, 1);
   return maxDepth;
 };
+
+const root1 = createTree([1, 2, 3, 4, 5, 6, 7, null, 8], 0);
+const root2 = createTree([1, 2, 3], 0);
+const case1 = maxDepth(root1);
+const case2 = maxDepth(root2);
+console.table([
+  {
+    name: "case1",
+    expected: 4,
+    result: case1,
+    isCorrect: case1 === 4,
+  },
+  {
+    name: "case2",
+    expected: 2,
+    result: case2,
+    isCorrect: case2 === 2,
+  },
+]);
